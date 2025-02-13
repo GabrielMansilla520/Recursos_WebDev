@@ -1,0 +1,255 @@
+body {
+  background-color: #0a0a0a; /* Dark Gray Background */
+  color: #f0f0f0; /* Light Gray Text */
+  font-family: "Roboto", sans-serif; /* Modern font */
+  overflow-x: hidden; /* Hide horizontal scrollbars */
+  scroll-behavior: smooth; /* Smooth scrolling */
+}
+
+#neural-network-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+header {
+  background: linear-gradient(
+    to right,
+    #330066,
+    #663399
+  ); /* Vibrant purple gradient */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 10; /* Ensure header is above aurora */
+  border-bottom: 2px solid #ffcc00; /* Bright yellow accent */
+  transition: all 0.4s ease-in-out; /* Smooth transition */
+  padding: 1.5rem 0; /* Increased padding */
+}
+
+header:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 8px 10px rgba(0, 0, 0, 0.6);
+}
+
+main {
+  padding: 3rem;
+  position: relative;
+  z-index: 10; /* Ensure content is above aurora */
+}
+
+section {
+  margin-bottom: 3rem;
+}
+
+h2 {
+  color: #e0e0e0;
+  border-bottom: 1px solid #4a5568;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Button Styles */
+.button {
+  @apply bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded shadow-md transition duration-300 ease-in-out;
+}
+
+/* Card Styles */
+.card {
+  background-color: #2d3748;
+  border-radius: 1rem; /* Increased border-radius */
+  padding: 1.5rem; /* Increased padding */
+  margin-bottom: 1.5rem; /* Increased margin */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Added box-shadow transition */
+  border: 1px solid #4a5568; /* Added subtle border */
+}
+
+.card:hover {
+  transform: translateY(-7px); /* Slightly more pronounced lift */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4); /* Stronger hover shadow */
+}
+
+/* Animation Example (simple fade-in) */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* More sophisticated button */
+.btn-gradient {
+  @apply text-white font-bold py-2 px-4 rounded shadow-md transition duration-300 ease-in-out;
+  background: linear-gradient(to right, #9f7aea, #bb6bd9);
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(to right, #bb6bd9, #9f7aea);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Navigation Links */
+nav a {
+  color: #d1d5db;
+  transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  display: inline-block; /* Make hover effect work on the whole area */
+}
+
+nav a:hover {
+  color: #fff;
+  transform: scale(1.1);
+  text-shadow: 0 0 5px #a3b18a;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #4a5568; /* Color of the tracking area */
+  border-radius: 4px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #718096; /* Color of the scroll thumb */
+  border-radius: 4px; /* Rounded corners */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0; /* Color of the scroll thumb on hover */
+}
+
+.resource-tag {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
+  border-radius: 0.5rem;
+  background-color: #4a5568;
+  color: #edf2f7;
+  font-size: 0.75rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.resource-tag:hover {
+  background-color: #718096;
+}
+
+/* Styles for the filter popup */
+.filter-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2d3748;
+  border: 1px solid #4a5568;
+  border-radius: 1rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6); /* Enhanced shadow */
+  padding: 2rem;
+  z-index: 50;
+  min-width: 500px; /* Increased width */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items vertically */
+}
+
+.filter-popup h3 {
+  color: #e0e0e0;
+  margin-bottom: 1.5rem; /* Increased margin */
+  text-align: center;
+  font-size: 1.5rem; /* Increased font size */
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center buttons horizontally */
+  max-height: 200px; /* Limit height to enable scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-button {
+  padding: 0.75rem 1rem;
+  margin: 0.5rem;
+  text-align: center;
+  background-color: #4a5568;
+  color: #edf2f7;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  flex: 0 1 auto; /* Allows buttons to shrink/grow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add shadow to buttons */
+}
+
+.filter-button:hover {
+  background-color: #718096;
+  transform: translateY(-3px); /* Add a lift effect */
+}
+
+.filter-button.active {
+  background-color: #9f7aea;
+  color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Enhance shadow when active */
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  width: 100%; /* Expand pagination to full width */
+}
+
+.page-button {
+  background: linear-gradient(to right, #743ad5, #d53a9d);
+  color: white;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add shadow to buttons */
+}
+
+.page-button:hover {
+  background: linear-gradient(to right, #d53a9d, #743ad5);
+  transform: translateY(-2px); /* Add a slight lift effect */
+}
+
+.filter-popup .close-button {
+  background-color: #e53e3e;
+  color: white;
+  margin-top: 1.5rem; /* Increased margin */
+  padding: 0.75rem 1.25rem;
+  border-radius: 1rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.filter-popup .close-button:hover {
+  background-color: #c53030;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 40;
+}

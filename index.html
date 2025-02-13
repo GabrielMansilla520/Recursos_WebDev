@@ -1,0 +1,141 @@
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gabriel Jones - Recursos de Desarrollo Web</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+  </head>
+
+  <body class="bg-gray-900 text-gray-100 font-sans overflow-x-hidden">
+    <div id="neural-network-container">
+      <canvas id="neural-network-canvas"></canvas>
+    </div>
+
+    <header class="bg-gray-800 py-4 shadow-md sticky top-0 z-50">
+      <div class="container mx-auto flex items-center justify-between p-4">
+        <!-- Nav -->
+        <nav class="flex justify-center w-full">
+          <a href="#" class="text-white text-xl font-bold futuristic-text">
+            Gabriel Jones
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container mx-auto mt-8 p-4">
+      <section id="recursos" class="mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Recursos</h2>
+        <div id="app"></div>
+      </section>
+
+      <section id="consejo">
+        <h2 class="text-2xl font-semibold mb-4">Consejo</h2>
+        <div id="publication-list"></div>
+      </section>
+
+      <section id="frase" class="text-center text-gray-400 italic">
+        <p>
+          "Nunca subestimes lo ordinario, en circunstancias especiales puede
+          convertirse en algo extraordinario."
+        </p>
+      </section>
+    </main>
+
+    <footer class="bg-gray-800 py-4 mt-8 text-center text-gray-400">
+      <p>&copy; 2024 Gabriel Jones</p>
+    </footer>
+
+    <script src="script.js" type="text/babel"></script>
+    <script>
+      const canvas = document.getElementById("neural-network-canvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const nodes = [];
+      const numNodes = 50;
+
+      class Node {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.radius = 5;
+          this.color = "rgba(159, 122, 234, 0.8)";
+          this.speedX = (Math.random() - 0.5) * 2;
+          this.speedY = (Math.random() - 0.5) * 2;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+
+          if (this.x < 0 || this.x > canvas.width) this.speedX = -this.speedX;
+          if (this.y < 0 || this.y > canvas.height) this.speedY = -this.speedY;
+        }
+      }
+
+      function init() {
+        for (let i = 0; i < numNodes; i++) {
+          nodes.push(new Node());
+        }
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let i = 0; i < nodes.length; i++) {
+          nodes[i].draw();
+          nodes[i].update();
+
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 150) {
+              ctx.beginPath();
+              ctx.strokeStyle = "rgba(159, 122, 234, 0.3)";
+              ctx.lineWidth = 0.5;
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+              ctx.closePath();
+            }
+          }
+        }
+      }
+
+      init();
+      animate();
+
+      window.addEventListener("resize", function () {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        nodes.length = 0;
+        init();
+      });
+    </script>
+  </body>
+</html>
